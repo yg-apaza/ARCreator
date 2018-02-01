@@ -36,7 +36,7 @@ public class MenuManager : MonoBehaviour {
 
     public void NextScene(string sceneName)
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(sceneName);
         Debug.Log("Done");
     }
 }
