@@ -1,0 +1,29 @@
+{
+	"title" : "My App",
+	"description": "An AR application example",
+	
+	"markers":
+	[
+		"hiro",
+		"kanji"
+	],
+	
+	"resources":
+	[
+		{
+			"_name": "billiard",
+			"_type": "poly",
+			"_url": "https://poly.google.com/view/1DEXg34OJ83"
+		}
+	],
+	
+	"interfaces":
+	[
+		{
+			"_action": 1,
+			"_event": 1,
+			"_markerName": "hiro",
+			"_resourceName": "billiard"
+		}
+	]
+}
