@@ -57,6 +57,5 @@ public class MenuManager : MonoBehaviour {
     public void NextScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-        Debug.Log("Done");
     }
 }
