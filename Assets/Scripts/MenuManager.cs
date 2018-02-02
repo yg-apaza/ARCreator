@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,32 +16,42 @@ public class MenuManager : MonoBehaviour {
 
     public void OpenExplorer()
     {
-        bool soyNuevo = false;
-        path = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), filenameTxt.text);
-        Debug.Log("Path: " + path);
+        string home = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        #if UNITY_ANDROID && !UNITY_EDITOR
+		    home="file:///mnt/sdcard/Documents/";
+        #endif
 
-        // TODO: Check if file exists
-        StreamReader reader = new StreamReader(path);
-        string content = reader.ReadToEnd();
-        reader.Close();
+        path = Path.Combine(home, filenameTxt.text);
+        validationLbl.text = "Path: " + path;
+                
+        StartCoroutine(readFile(path));		
+    }
 
-        if (arAppStructure.title.Equals(""))
-            soyNuevo = true;
+    IEnumerator readFile(string path)
+    {
+        WWW data = new WWW(path);
+        yield return data;
+                
+        if (string.IsNullOrEmpty(data.error))
+        {
+            string content = data.text;
 
-        JsonUtility.FromJsonOverwrite(content, arAppStructure);
+            JsonUtility.FromJsonOverwrite(content, arAppStructure);
 
-        // TODO: Check validity of JSON structure
-        Debug.Log("Titulo: <" + arAppStructure.title + ">");
-        if(soyNuevo)
-            messageLbl.text = "Soy nuevo: Opening project " + "\"" + arAppStructure.title + "\" ...";
+            // TODO: Check validity of JSON structure
+            
+            messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
+            // TODO: Check validity of interfaces
+            // TODO: Check validity of URL markers and resources
+            // TODO: Send the valid JSON object to the next Scene
+
+            // TODO: If everything is OK, enable Next button
+            nextBtn.interactable = true;
+        }
         else
-            messageLbl.text = "Ya tenia data anterior: Opening project " + "\"" + arAppStructure.title + "\" ...";
-        // TODO: Check validity of interfaces
-        // TODO: Check validity of URL markers and resources
-        // TODO: Send the valid JSON object to the next Scene
-
-        // TODO: If everything is OK, enable Next button
-        nextBtn.interactable = true;
+        {
+            // TODO: Handle if file not exits
+        }
     }
 
     public void NextScene(string sceneName)

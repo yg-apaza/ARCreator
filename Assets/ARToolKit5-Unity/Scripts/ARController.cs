@@ -349,10 +349,10 @@ public class ARController : MonoBehaviour
 	void Start()
 	{
         //Log(LogTag + "ARController.Awake())");
-#if UNITY_IOS && !UNITY_EDITOR
+        #if UNITY_IOS && !UNITY_EDITOR
 		ARNativePluginStatic.aruRequestCamera();
 		Thread.Sleep(2000);
-#endif
+        #endif
         if (PluginFunctions.arwInitialiseAR(TemplateSize, TemplateCountMax))
         {
             // ARToolKit version number

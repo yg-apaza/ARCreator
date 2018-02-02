@@ -174,7 +174,7 @@ PlayerSettings:
   iPhoneStrippingLevel: 1
   iPhoneScriptCallOptimization: 1
   ForceInternetPermission: 1
-  ForceSDCardPermission: 0
+  ForceSDCardPermission: 1
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
@@ -664,7 +664,8 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: e88554bd-8d49-4e8d-95f2-ed7b5e9ad37f
