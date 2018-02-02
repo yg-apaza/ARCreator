@@ -1,6 +1,6 @@
 ﻿[System.Serializable]
 public class ARAppResource {
-    string _name;
-    string _type;
-    string _url;    
+    public string _name;
+    public string _type;
+    public string _url;    
 }
