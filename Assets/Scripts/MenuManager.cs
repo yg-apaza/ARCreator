@@ -13,6 +13,9 @@ public class MenuManager : MonoBehaviour {
     public Text validationLbl;
     public Button nextBtn;
 
+	void Start() {
+		filenameTxt.text = "example.json";
+	}
 
     public void OpenExplorer()
     {
