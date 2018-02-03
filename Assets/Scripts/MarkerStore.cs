@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class MarkerStore {
 
-	public static Dictionary<string, string> markerStore;
-
-	public MarkerStore(){
-		markerStore = new Dictionary<string, string> ();
-		markerStore.Add ("hiro", "patt.hiro");
-		markerStore.Add ("kanji", "patt.kanji");
-	}
+	public static readonly Dictionary<string, string> markerStore = new Dictionary<string, string>
+    {
+        {"hiro", "patt.hiro"},
+        {"kanji", "patt.kanji"},
+    };
 }

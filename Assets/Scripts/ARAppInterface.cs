@@ -1,7 +1,7 @@
 ﻿[System.Serializable]
 public class ARAppInterface {
-    int _action;
-    int _event;
-    string _markerName;
-    string _resourceName;
+    public int _action;
+    public int _event;
+    public string _markerName;
+    public string _resourceName;
 }

@@ -24,6 +24,12 @@
 			"_event": 1,
 			"_markerName": "hiro",
 			"_resourceName": "billiard"
+		},
+		{
+			"_action": 1,
+			"_event": 1,
+			"_markerName": "kanji",
+			"_resourceName": "billiard"
 		}
 	]
 }
