@@ -1,0 +1,45 @@
+{
+	"title" : "My AR App with Poly",
+	"description": "An AR application example using Poly from Google",
+	
+	"markers":
+	[
+		"hiro",
+		"kanji"
+	],
+	
+	"resources":
+	[
+		{
+			"_name": "myCube",
+			"_type": "native",
+			"_url": "cube"
+		},
+		{
+			"_name": "billiard",
+			"_type": "poly",
+			"_url": "5vbJ5vildOq"
+		},
+		{
+			"_name": "cat",
+			"_type": "poly",
+			"_url": "6dM1J6f6pm9"
+		}
+	],
+	
+	"interfaces":
+	[
+		{
+			"_action": 1,
+			"_event": 1,
+			"_markerName": "hiro",
+			"_resourceName": "myCube"
+		},
+		{
+			"_action": 1,
+			"_event": 1,
+			"_markerName": "kanji",
+			"_resourceName": "cat"
+		}
+	]
+}

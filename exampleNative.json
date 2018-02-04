@@ -1,5 +1,5 @@
 {
-	"title" : "My App",
+	"title" : "My AR App",
 	"description": "An AR application example",
 	
 	"markers":
@@ -11,9 +11,14 @@
 	"resources":
 	[
 		{
-			"_name": "billiard",
-			"_type": "poly",
-			"_url": "https://poly.google.com/view/1DEXg34OJ83"
+			"_name": "myCube",
+			"_type": "native",
+			"_url": "cube"
+		},
+		{
+			"_name": "mySphere",
+			"_type": "native",
+			"_url": "sphere"
 		}
 	],
 	
@@ -23,13 +28,13 @@
 			"_action": 1,
 			"_event": 1,
 			"_markerName": "hiro",
-			"_resourceName": "billiard"
+			"_resourceName": "myCube"
 		},
 		{
 			"_action": 1,
 			"_event": 1,
 			"_markerName": "kanji",
-			"_resourceName": "billiard"
+			"_resourceName": "mySphere"
 		}
 	]
 }

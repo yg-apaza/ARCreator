@@ -12,33 +12,19 @@ public class InstantiationManager : MonoBehaviour {
     void Start () {
         loadMarkers();
         loadInterfaces();
-
-        //GameObject markerScene = Instantiate (Resources.Load("MarkerScene", typeof(GameObject))) as GameObject;
-        //ARTrackedObject arTrackedObject = markerScene.GetComponent<ARTrackedObject> () as ARTrackedObject;
-        //arTrackedObject.MarkerTag = "hiro";
-        //markerScene.transform.parent = sceneRoot.transform;
-
-        //ARMarker test = ARToolkit.GetComponent<ARMarker>() as ARMarker;
-        //test.PatternFilename = "patt.kanji";
-        //test.Load();
-        //Debug.Log("Tag: <" + test.Tag + ">");
-        //Debug.Log("Filename: <" + test.PatternFilename + ">");
     }
 
     private void loadMarkers(){
 		foreach(string marker in arAppStructure.markers)
 		{
 			ARMarker arMarker = ARToolkit.AddComponent(typeof(ARMarker)) as ARMarker;
-            //arMarker.Unload();
             arMarker.Tag = marker;
             arMarker.MarkerType = MarkerType.Square;
             arMarker.PatternWidth = 0.08f;
             arMarker.PatternFilename = MarkerStore.markerStore[marker];
-            //arMarker.PatternFilenameIndex = 1;
             TextAsset patternAsset = Resources.Load("ardata/markers/" + MarkerStore.markerStore[marker], typeof(TextAsset)) as TextAsset;
             arMarker.PatternContents = patternAsset.text;
             arMarker.Load();
-            //Debug.Log("Marker: " + arMarker.Tag + ", filename: " + arMarker.PatternFilename + ", buffer: <" + arMarker.PatternContents + ">");
 		}
 	}
     
@@ -67,11 +53,22 @@ public class InstantiationManager : MonoBehaviour {
         Debug.Log("Successfully imported asset!");
 
         // Add to scene
-        result.Value.gameObject.AddComponent<Rotate>();
-        result.Value.gameObject.transform.parent = currentMarkerScene.transform;
-        result.Value.gameObject.layer = 8;
-
+		GameObject polyModel = result.Value.gameObject.transform.GetChild (0).gameObject;
+		polyModel.SetActive (false);
+		polyModel.transform.parent = currentMarkerScene.transform;
+		changeLayerToARBackground (polyModel.transform);
+		polyModel.transform.position = new Vector3(0f, 0f, 0f);
+		polyModel.transform.localScale = new Vector3(0.015f, 0.015f, 0.015f);
     }
+
+	private static void changeLayerToARBackground(Transform trans)
+	{
+		trans.gameObject.layer = 8;
+		foreach(Transform child in trans)
+		{            
+			changeLayerToARBackground(child);
+		}
+	}
 
     private void loadInterfaces()
     {
@@ -106,12 +103,6 @@ public class InstantiationManager : MonoBehaviour {
         arTrackedObject.MarkerTag = markerName;
         markerScene.transform.parent = sceneRoot.transform;
         return markerScene;
-        //add cube
-        //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //cube.transform.parent = markerScene.transform;
-        //cube.transform.position = new Vector3(0f, 0f, 0f);
-        //cube.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
-        //cube.layer = 8;
     }
 
 
@@ -169,7 +160,6 @@ public class InstantiationManager : MonoBehaviour {
         primitiveModel.transform.position = new Vector3(0f, 0f, 0f);
         primitiveModel.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
         primitiveModel.layer = 8;
-        primitiveModel.AddComponent<Rotate>();
         primitiveModel.transform.parent = markerScene.transform;
     }
 }
