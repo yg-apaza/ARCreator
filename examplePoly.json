@@ -11,11 +11,6 @@
 	"resources":
 	[
 		{
-			"_name": "myCube",
-			"_type": "native",
-			"_url": "cube"
-		},
-		{
 			"_name": "billiard",
 			"_type": "poly",
 			"_url": "5vbJ5vildOq"
@@ -33,7 +28,7 @@
 			"_action": 1,
 			"_event": 1,
 			"_markerName": "hiro",
-			"_resourceName": "myCube"
+			"_resourceName": "billiard"
 		},
 		{
 			"_action": 1,
