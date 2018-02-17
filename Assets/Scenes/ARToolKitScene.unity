@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 299956250}
-  - component: {fileID: 299956249}
+  - component: {fileID: 299956251}
   m_Layer: 0
   m_Name: Instantiation
   m_TagString: Untagged
@@ -129,20 +129,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &299956249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 299956248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65a69f4f38fa9d44382ba2a81446eac2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneRoot: {fileID: 1533051379}
-  ARToolkit: {fileID: 716373483}
-  arAppStructure: {fileID: 11400000, guid: 0a745ba3753aa6b4bb5eed83f39a6426, type: 2}
 --- !u!4 &299956250
 Transform:
   m_ObjectHideFlags: 0
@@ -156,6 +142,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &299956251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 299956248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c2931f07ce2de4d99a096e196ee3c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arAppStructure: {fileID: 11400000, guid: 0a745ba3753aa6b4bb5eed83f39a6426, type: 2}
+  ARToolkit: {fileID: 716373483}
+  sceneRoot: {fileID: 1533051379}
 --- !u!1 &314311604
 GameObject:
   m_ObjectHideFlags: 0

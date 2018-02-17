@@ -1,6 +1,7 @@
 {
 	"title" : "My AR App",
 	"description": "An AR application example",
+	"framework": "artoolkit",
 	
 	"markers":
 	[
@@ -11,30 +12,30 @@
 	"resources":
 	[
 		{
-			"_name": "myCube",
-			"_type": "native",
-			"_url": "cube"
+			"name": "myCube",
+			"type": "native",
+			"url": "cube"
 		},
 		{
-			"_name": "mySphere",
-			"_type": "native",
-			"_url": "sphere"
+			"name": "mySphere",
+			"type": "native",
+			"url": "sphere"
 		}
 	],
 	
 	"interfaces":
 	[
 		{
-			"_action": 1,
-			"_event": 1,
-			"_markerName": "hiro",
-			"_resourceName": "myCube"
+			"interfaceAction": 1,
+			"interfaceEvent": 1,
+			"markerName": "hiro",
+			"resourceName": "myCube"
 		},
 		{
-			"_action": 1,
-			"_event": 1,
-			"_markerName": "kanji",
-			"_resourceName": "mySphere"
+			"interfaceAction": 1,
+			"interfaceEvent": 1,
+			"markerName": "kanji",
+			"resourceName": "mySphere"
 		}
 	]
 }

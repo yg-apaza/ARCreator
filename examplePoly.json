@@ -1,40 +1,60 @@
 {
 	"title" : "My AR App with Poly",
 	"description": "An AR application example using Poly from Google",
+	"framework": "artoolkit",
 	
 	"markers":
 	[
-		"hiro",
-		"kanji"
+		"aletter",
+		"bletter",
+		"cletter",
+		"dletter",
+		"fletter",
+		"gletter",
+		"hiro"
 	],
 	
 	"resources":
 	[
 		{
-			"_name": "billiard",
-			"_type": "poly",
-			"_url": "5vbJ5vildOq"
+			"name": "piano",
+			"type": "poly",
+			"url": "5vbJ5vildOq"
 		},
 		{
-			"_name": "cat",
-			"_type": "poly",
-			"_url": "6dM1J6f6pm9"
+			"name": "cat",
+			"type": "poly",
+			"url": "6dM1J6f6pm9"
+		},
+		{
+			"name": "alien",
+			"type": "poly",
+			"url": "7VJiMcRcn6d"
+		},
+		{
+			"name": "pony",
+			"type": "poly",
+			"url": "d8_84tSnTgc"
+		},
+		{
+			"name": "r2d2",
+			"type": "poly",
+			"url": "dPgkqmBDqgH"
+		},
+		{
+			"name": "muffin",
+			"type": "poly",
+			"url": "cYSoeW9C-pZ"
 		}
 	],
 	
 	"interfaces":
 	[
 		{
-			"_action": 1,
-			"_event": 1,
-			"_markerName": "hiro",
-			"_resourceName": "billiard"
-		},
-		{
-			"_action": 1,
-			"_event": 1,
-			"_markerName": "kanji",
-			"_resourceName": "cat"
+			"interfaceAction": 1,
+			"interfaceEvent": 1,
+			"markerName": "hiro",
+			"resourceName": "piano"
 		}
 	]
 }
