@@ -14,6 +14,11 @@ public class MenuManager : MonoBehaviour
     public Text messageLbl;
     public Text validationLbl;
     public Button nextBtn;
+	public Dropdown listApps;
+
+	public Text textTest;
+
+	public 
 
     void Start()
     {
@@ -23,15 +28,15 @@ public class MenuManager : MonoBehaviour
 
     public void OpenExplorer()
     {
-        string home = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+        //string home = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-		    home="file:///mnt/sdcard/Documents/";
-#endif
-
-        path = Path.Combine(home, filenameTxt.text);
-        validationLbl.text = "Path: " + path;
-
+//#if UNITY_ANDROID && !UNITY_EDITOR
+//		    home="file:///mnt/sdcard/Documents/";
+//#endif
+	
+		string path = "http://aqueous-mountain-38515.herokuapp.com/arapp/summary";
+//        path = Path.Combine(home, filenameTxt.text);
+//        validationLbl.text = "Path: " + path;
         StartCoroutine(readFile(path));
     }
 
