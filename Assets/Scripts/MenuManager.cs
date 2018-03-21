@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Citesoft.ARAuthoringTool.Core.Template;
 using UnityEngine;
@@ -10,7 +11,9 @@ public class MenuManager : MonoBehaviour
     string path;
     string framework;
     public ARAppStructure arAppStructure;
-    public InputField filenameTxt;
+	public ARAppList arAppList = null;
+
+	public InputField filenameTxt;
     public Text messageLbl;
     public Text validationLbl;
     public Button nextBtn;
@@ -18,13 +21,11 @@ public class MenuManager : MonoBehaviour
 
 	public Text textTest;
 
-	public 
-
     void Start()
     {
         framework = "unnamed";
-        filenameTxt.text = "examplePoly.json";
-    }
+		listApps.ClearOptions();
+	}
 
     public void OpenExplorer()
     {
@@ -44,34 +45,62 @@ public class MenuManager : MonoBehaviour
     {
         WWW data = new WWW(path);
         yield return data;
+		
+		if (string.IsNullOrEmpty(data.error))
+		{
+			arAppList = new ARAppList();
+			string content = data.text;
+			JsonUtility.FromJsonOverwrite(content, arAppList);
+			//framework = arAppStructure.framework;
+			// TODO: Check validity of JSON structure
 
-        if (string.IsNullOrEmpty(data.error))
-        {
-            string content = data.text;
+			List<string> titles = new List<string>();
 
-            JsonUtility.FromJsonOverwrite(content, arAppStructure);
-            framework = arAppStructure.framework;
+			foreach (ARAppSummary a in arAppList.arApps)
+				titles.Add(a.title);
 
-            // TODO: Check validity of JSON structure
+			listApps.AddOptions( titles );
+			//messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
+			// TODO: Check validity of interfaces
+			// TODO: Check validity of URL markers and resources
+			// TODO: Send the valid JSON object to the next Scene
 
-            messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
-            // TODO: Check validity of interfaces
-            // TODO: Check validity of URL markers and resources
-            // TODO: Send the valid JSON object to the next Scene
-
-            // TODO: If everything is OK, enable Next button
-            nextBtn.interactable = true;
-        }
+			// TODO: If everything is OK, enable Next button
+			nextBtn.interactable = true;
+		}
         else
         {
-            // TODO: Handle if file not exits
-        }
+			textTest.text = "Error al leer";
+			// TODO: Handle if file not exits
+		}
     }
 
-    public void NextScene()
+	IEnumerator ExtractSelection(string path)
+	{
+		WWW data = new WWW(path);
+		yield return data;
+		if (string.IsNullOrEmpty(data.error))
+		{
+			string content = data.text;
+			JsonUtility.FromJsonOverwrite(content, arAppStructure);
+			framework = arAppStructure.framework;
+			messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
+			//nextBtn.interactable = true;
+		}
+		else {
+			Debug.Log("Error not data !!!!!!");
+		}
+	}
+
+	public void NextScene()
     {
-        // TODO: Use dictionary to store framework id and its associated scene
-        if (framework.Equals("artoolkit"))
+		//if (arAppList == null) return;
+
+		string pathARApp = Path.Combine("http://aqueous-mountain-38515.herokuapp.com/arapp/",arAppList.arApps[listApps.value]._id);
+		// TODO: Use dictionary to store framework id and its associated scene
+		StartCoroutine( ExtractSelection(pathARApp) );
+
+		if (framework.Equals("artoolkit"))
         {
             SceneManager.LoadScene("ARToolKitScene");
         }
