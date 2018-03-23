@@ -55,7 +55,7 @@ public class MenuManager : MonoBehaviour
 			// TODO: Check validity of JSON structure
 
 			List<string> titles = new List<string>();
-
+			titles.Add("Selecciona un aplicacion");
 			foreach (ARAppSummary a in arAppList.arApps)
 				titles.Add(a.title);
 
@@ -74,6 +74,13 @@ public class MenuManager : MonoBehaviour
 			// TODO: Handle if file not exits
 		}
     }
+
+	public void OpenARApp()
+	{
+		string pathARApp = Path.Combine("http://aqueous-mountain-38515.herokuapp.com/arapp/", arAppList.arApps[listApps.value-1]._id);
+		// TODO: Use dictionary to store framework id and its associated scene
+		StartCoroutine(ExtractSelection(pathARApp));
+	}
 
 	IEnumerator ExtractSelection(string path)
 	{
@@ -94,12 +101,6 @@ public class MenuManager : MonoBehaviour
 
 	public void NextScene()
     {
-		//if (arAppList == null) return;
-
-		string pathARApp = Path.Combine("http://aqueous-mountain-38515.herokuapp.com/arapp/",arAppList.arApps[listApps.value]._id);
-		// TODO: Use dictionary to store framework id and its associated scene
-		StartCoroutine( ExtractSelection(pathARApp) );
-
 		if (framework.Equals("artoolkit"))
         {
             SceneManager.LoadScene("ARToolKitScene");
