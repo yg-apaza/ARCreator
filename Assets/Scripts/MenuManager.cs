@@ -12,14 +12,13 @@ public class MenuManager : MonoBehaviour
     string framework;
     public ARAppStructure arAppStructure;
 	public ARAppList arAppList = null;
-
 	public InputField filenameTxt;
     public Text messageLbl;
     public Text validationLbl;
     public Button nextBtn;
 	public Dropdown listApps;
-
-	public Text textTest;
+	public Image gridWithARAppOtions;
+	public Button aRAppOptionButton;
 
     void Start()
     {
@@ -45,7 +44,7 @@ public class MenuManager : MonoBehaviour
     {
         WWW data = new WWW(path);
         yield return data;
-		
+
 		if (string.IsNullOrEmpty(data.error))
 		{
 			arAppList = new ARAppList();
@@ -57,7 +56,11 @@ public class MenuManager : MonoBehaviour
 			List<string> titles = new List<string>();
 			titles.Add("Selecciona un aplicacion");
 			foreach (ARAppSummary a in arAppList.arApps)
+			{
 				titles.Add(a.title);
+			
+				Instantiate(aRAppOptionButton, gridWithARAppOtions.transform);
+			}	
 
 			listApps.AddOptions( titles );
 			//messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
@@ -70,7 +73,6 @@ public class MenuManager : MonoBehaviour
 		}
         else
         {
-			textTest.text = "Error al leer";
 			// TODO: Handle if file not exits
 		}
     }
