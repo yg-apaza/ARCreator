@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Citesoft.ARAuthoringTool.Core.Template;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -52,13 +53,18 @@ public class MenuManager : MonoBehaviour
 			JsonUtility.FromJsonOverwrite(content, arAppList);
 			//framework = arAppStructure.framework;
 			// TODO: Check validity of JSON structure
-
+			Text [] children = null;
 			List<string> titles = new List<string>();
 			titles.Add("Selecciona un aplicacion");
+			aRAppOptionButton.onClick.AddListener(OpenARApp_);
 			foreach (ARAppSummary a in arAppList.arApps)
 			{
 				titles.Add(a.title);
-			
+				aRAppOptionButton.name = a._id;
+				children = aRAppOptionButton.GetComponentsInChildren<Text>();
+				children[0].text = a.title;
+				children[1].text = "author:\nframework:\ndescription:";
+				children[2].text = a.author+"\n"+a.framework+"\n"+a.description;
 				Instantiate(aRAppOptionButton, gridWithARAppOtions.transform);
 			}	
 
@@ -76,6 +82,17 @@ public class MenuManager : MonoBehaviour
 			// TODO: Handle if file not exits
 		}
     }
+
+	public void OpenARApp_(  )
+	{
+		string id = EventSystem.current.currentSelectedGameObject.name;
+		id =  (id.Contains("(Clone)"))?  id.Remove(id.Length-7 , 7  ) : id;
+
+		string pathARApp = Path.Combine("http://aqueous-mountain-38515.herokuapp.com/arapp/", id  );
+		Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+		// TODO: Use dictionary to store framework id and its associated scene
+		StartCoroutine(ExtractSelection(pathARApp));
+	}
 
 	public void OpenARApp()
 	{
