@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
 	public ARAppList arAppList = null;
 	public InputField filenameTxt;
     public Text messageLbl;
-    public Text validationLbl;
+    public Text stateLbl;
     public Button nextBtn;
 	public Dropdown listApps;
 	public Image gridWithARAppOtions;
@@ -29,12 +29,12 @@ public class MenuManager : MonoBehaviour
 
     public void OpenExplorer()
     {
-        //string home = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+		//string home = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
 
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		    home="file:///mnt/sdcard/Documents/";
-//#endif
-	
+		//#if UNITY_ANDROID && !UNITY_EDITOR
+		//		    home="file:///mnt/sdcard/Documents/";
+		//#endif
+		stateLbl.text = "Loading applications ...";
 		string path = "http://aqueous-mountain-38515.herokuapp.com/arapp/summary";
 //        path = Path.Combine(home, filenameTxt.text);
 //        validationLbl.text = "Path: " + path;
@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
 			Text [] children = null;
 			List<string> titles = new List<string>();
 			titles.Add("Selecciona un aplicacion");
-			aRAppOptionButton.onClick.AddListener(OpenARApp_);
+			//aRAppOptionButton.onClick.AddListener(OpenARApp_);
 			foreach (ARAppSummary a in arAppList.arApps)
 			{
 				titles.Add(a.title);
@@ -64,11 +64,16 @@ public class MenuManager : MonoBehaviour
 				children = aRAppOptionButton.GetComponentsInChildren<Text>();
 				children[0].text = a.title;
 				children[1].text = "author:\nframework:\ndescription:";
-				children[2].text = a.author+"\n"+a.framework+"\n"+a.description;
+				children[2].text = a.author+"\n"+a.framework+"\n"+( (a.description.Length > 30 )?  a.description.Substring(0,30)+"..." : a.description) ;
 				Instantiate(aRAppOptionButton, gridWithARAppOtions.transform);
 			}	
 
 			listApps.AddOptions( titles );
+			Button[] buttons = gridWithARAppOtions.GetComponentsInChildren<Button>();
+			foreach (Button button in buttons)
+			{
+				button.onClick.AddListener(() => OpenARApp_());
+			}
 			//messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
 			// TODO: Check validity of interfaces
 			// TODO: Check validity of URL markers and resources
@@ -76,15 +81,17 @@ public class MenuManager : MonoBehaviour
 
 			// TODO: If everything is OK, enable Next button
 			nextBtn.interactable = true;
+			stateLbl.text = "Ready!!!";
 		}
         else
         {
-			// TODO: Handle if file not exits
+			stateLbl.text = "Error!!!";
 		}
     }
 
 	public void OpenARApp_(  )
 	{
+		stateLbl.text = "Loading application...";
 		string id = EventSystem.current.currentSelectedGameObject.name;
 		id =  (id.Contains("(Clone)"))?  id.Remove(id.Length-7 , 7  ) : id;
 
@@ -92,6 +99,7 @@ public class MenuManager : MonoBehaviour
 		Debug.Log(EventSystem.current.currentSelectedGameObject.name);
 		// TODO: Use dictionary to store framework id and its associated scene
 		StartCoroutine(ExtractSelection(pathARApp));
+
 	}
 
 	public void OpenARApp()
@@ -112,9 +120,11 @@ public class MenuManager : MonoBehaviour
 			framework = arAppStructure.framework;
 			messageLbl.text = "Opening project " + "\"" + arAppStructure.title + "\" ...";
 			//nextBtn.interactable = true;
+			stateLbl.text = "Application ready!!!";
 		}
 		else {
 			Debug.Log("Error not data !!!!!!");
+			stateLbl.text = "Error!!!";
 		}
 	}
 
